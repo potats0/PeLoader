@@ -28,8 +28,6 @@ test.exe 是测试程序，test.c 是测试程序的代码
 2. 没有处理很多东西。没有处理资源表，延迟绑定等
 运行截图
 
+![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/1.png)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 28851752337816a7f9c319baa2177bf383b8b7c3
+![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/1.png)
