@@ -117,7 +117,7 @@ FF代表绝对跳转， JMP r/m32 绝对跳转（32位），下一指令地址�
 而pe文件中，IAT首先会存放va，指向一个`IMAGE_IMPORT_BY_NAME`，里面存放导入函数的名称和hint。
 
 所以修复IAT很简单，首先遍历INT，INT的结构如下
-![](https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g3i7tke9z3j30zg0coq3j.jpg)
+![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/20170820114145821.png)
 
 遍历到INT，拿到加载dll的名字。调用loadlobrary加载。
 
@@ -168,7 +168,7 @@ void MyExitProcess(_In_ UINT uExitCode) {
 ##### 处理重定位表
 
 根据重定位表的定义，里面存放着相对于ImageBase的偏移。我们需要读取到该偏移后，转换成virtual address。与当前加载的基地址进行对比。根据偏移去修复即可。重定位表的解释如图
-![](https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g3i8f4u46dj30pf0efdgj.jpg)
+![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/20170818164751341.png)
 
 代码如下
 ```
@@ -219,7 +219,7 @@ void MyExitProcess(_In_ UINT uExitCode) {
  
  ![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/1.png)
  
- ![image](https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g3i8mzuzd6j30hb02jgln.jpg)
+ ![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/20170820114145821.png)
  
  
  目前已知的bug
@@ -227,6 +227,9 @@ void MyExitProcess(_In_ UINT uExitCode) {
  2. 容易出现无法申请内存的问题
 
 
+vt 查询结果
+![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/%E6%89%B9%E6%B3%A8%202019-05-29%20160303.png)
+
  完整的代码，请去github上看
 
-!(https://github.com/potats0/PeLoader)
+[https://github.com/potats0/PeLoader](https://github.com/potats0/PeLoader)
