@@ -219,7 +219,7 @@ void MyExitProcess(_In_ UINT uExitCode) {
  
  ![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/1.png)
  
- ![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/20170820114145821.png)
+ ![image](https://raw.githubusercontent.com/potats0/PeLoader/master/Docs/%E6%89%B9%E6%B3%A8%202019-05-29%20155225.png)
  
  
  目前已知的bug
