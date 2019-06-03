@@ -57,17 +57,21 @@ static LPVOID AllocateMemory(IN PIMAGE_NT_HEADERS pnt) {
 	DWORD dwImageBaseAddr = pnt->OptionalHeader.ImageBase;
 	//为了安全性，暂时将该申请的内存区域设置成可读可写，等一会再根据需要重新设置
 	//必须要设置MEM_RESERVE，不然不能申请0x00400000地址
-	dwImageBaseAddr = 0x00500000;
 	LPVOID returnAddr = VirtualAlloc((LPVOID)dwImageBaseAddr, dwSizeOfImage, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-	printf("%d", GetLastError());
 	if (GetLastError() == 0) {
 		printf("[+] 正在根据pe的加载基地址 申请内存，基地址为 0x%p\n", (LPVOID)dwImageBaseAddr);
 		return returnAddr;
 	}
-	else {
-		returnAddr = VirtualAlloc(NULL, dwSizeOfImage, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	else if (GetLastError() && pnt->FileHeader.Characteristics & IMAGE_FILE_RELOCS_STRIPPED == 0){
+		// 如果无法申请到image推荐的基地址，并且该pe文件支持重定位的话，给他重新申请一个地址
+		returnAddr = m(NULL, dwSizeOfImage, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 		printf("[+] pe的加载基地址不能用，正在重新申请地址中，基地址为 0x%p\n", (LPVOID)dwImageBaseAddr);
 		return returnAddr;
+	}
+	else
+	{
+		//出错了，只能返回null
+		return NULL;
 	}
 }
 
