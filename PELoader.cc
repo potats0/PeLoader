@@ -62,7 +62,7 @@ static LPVOID AllocateMemory(IN PIMAGE_NT_HEADERS pnt) {
 		printf("[+] 正在根据pe的加载基地址 申请内存，基地址为 0x%p\n", (LPVOID)dwImageBaseAddr);
 		return returnAddr;
 	}
-	else if (GetLastError() && pnt->FileHeader.Characteristics & IMAGE_FILE_RELOCS_STRIPPED == 0){
+	else if (GetLastError() && (pnt->FileHeader.Characteristics & IMAGE_FILE_RELOCS_STRIPPED) == 0){
 		// 如果无法申请到image推荐的基地址，并且该pe文件支持重定位的话，给他重新申请一个地址
 		returnAddr = m(NULL, dwSizeOfImage, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 		printf("[+] pe的加载基地址不能用，正在重新申请地址中，基地址为 0x%p\n", (LPVOID)dwImageBaseAddr);
